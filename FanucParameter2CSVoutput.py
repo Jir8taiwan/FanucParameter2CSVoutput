@@ -6,7 +6,7 @@ import csv
 import os, sys
 import openpyxl
 import time
-from tqdm import tqdm
+#from tqdm import tqdm
 #####################
 # Author: https://github.com/Jir8taiwan/
 # Version. 2022.10.21-1
@@ -58,7 +58,7 @@ if not os.path.exists(TXTinputPATH):
 with open(TXTinputPATH, 'r') as checkfile:
     linecount = len(checkfile.readlines())
 #print(linecount)
-progress = tqdm(total=linecount)
+#progress = tqdm(total=linecount)
 
 checkfile.close()
 
@@ -66,13 +66,24 @@ checkfile.close()
 print("Converting and processing!!")
 txt = ""
 with open(TXTinputPATH, 'r', encoding='UTF-8') as file:
-    while (line := file.readline().rstrip()):
+    #while (line := file.readline().rstrip()):
+    nonempty = filter(str.rstrip, file)
+    for line in nonempty:
         
         if "%" in line.strip():
             line = ""
         paramNUM = str(line[:6])
         #paramNUM = line.rsplit('Q1L1P', 1)[0]
+        ##### for older bck format
+        #line = re.sub(r"\s+", ",", line)
+        line = line.replace(" ", "")
+        if not len(line) == 0:
+            if not line[6:8] == "Q1":
+                #print(line[6:8])
+                line = line[:6] + "Q1" + line[6:]
+        
 
+        ##### for newer bck format                
         #line = line.replace("A11P", "\nA11")
         line = line.rsplit('A7', 1)[0]
         line = line.rsplit('S5', 1)[0]
@@ -122,7 +133,7 @@ with open(TXTinputPATH, 'r', encoding='UTF-8') as file:
 
         line = line.replace("Q1P", ",,")
 
-        progress.update(1)
+        #progress.update(1)
         #print("Formating:", line)
         txt += line + "\n"
 
