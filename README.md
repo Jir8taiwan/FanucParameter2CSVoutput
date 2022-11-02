@@ -1,7 +1,7 @@
 # FanucParameter2CSVoutput
 FANUC controller parameter backup file converts to CSV and EXCEL format to read easily.
 
- Version. 2022.10.21-1
+ Version. 2022.11.02-1
 
  Using PYTHON3 language to open and convert at FANUC controller system of parameter backup.
  Please copy "CNC-PARA.TXT" in program folder together.
@@ -30,3 +30,4 @@ Thank you a lot.
 
 如果使用上有什麼問題，懇請建議。感謝。
 
+* 2022/11/02 已知問題：0M和18M舊格式文件檔案尚不支援解析。
